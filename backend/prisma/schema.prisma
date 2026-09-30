@@ -1,0 +1,56 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+// Get a free hosted Postgres database in seconds: `npx create-db`
+
+generator client {
+  provider = "prisma-client-js"
+  output   = "../src/generated/prisma"
+}
+
+datasource db {
+  provider = "postgresql"
+}
+
+model User {
+    id              Int             @id @default(autoincrement())
+    username        String          @unique
+    email           String          @unique
+    passwordHash    String          @map("password_hash")
+    created_at      DateTime        @default(now()) @map("created_at")
+
+    tasks           Task[]
+    category        Category[]
+
+    @@map("users")
+}
+
+model Task {
+    id              Int             @id @default(autoincrement())
+    title           String          @db.VarChar(200)
+    completed       Boolean         @default(false)
+    created_at      DateTime?        @default(now()) @db.Timestamp(6) @map("created_at")
+    updated_at      DateTime        @default(now()) @updatedAt
+
+    userId          Int             @map("user_id")
+    user            User            @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+    categoryId      Int?
+    category        Category?       @relation(fields: [categoryId], references: [id], onDelete: SetNull)
+
+    @@map("tasks")
+}
+
+model Category {
+    id              Int             @id @default(autoincrement())
+    name            String
+    created_at      DateTime        @default(now()) @map("created_at")
+    updated_at      DateTime        @updatedAt
+
+    userId          Int             @map("user_id")
+    user            User            @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+    task            Task[]
+
+    @@map("category")
+}
