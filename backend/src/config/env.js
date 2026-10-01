@@ -1,5 +1,3 @@
-import { AppError } from "../utils/appError.js";
-
 const requiredVars = ["PORT", "DATABASE_URL", "JWT_SECRET", "JWT_EXPIRES_IN"];
 const missing = [];
 
@@ -10,7 +8,7 @@ for (const varName of requiredVars) {
 }
 
 if (missing.length > 0) {
-  throw new AppError(`Missing required env var(s): ${missing.join(", ")}`, 404);
+  throw new Error(`Missing required env var(s): ${missing.join(", ")}`);
 }
 
 const env = {

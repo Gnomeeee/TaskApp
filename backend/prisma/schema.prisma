@@ -29,7 +29,7 @@ model Task {
     id              Int             @id @default(autoincrement())
     title           String          @db.VarChar(200)
     completed       Boolean         @default(false)
-    created_at      DateTime?        @default(now()) @db.Timestamp(6) @map("created_at")
+    created_at      DateTime?       @default(now()) @db.Timestamp(6) @map("created_at")
     updated_at      DateTime        @default(now()) @updatedAt
 
     userId          Int             @map("user_id")
