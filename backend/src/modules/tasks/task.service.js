@@ -6,7 +6,7 @@ export const getAllTasks = async (userId) => {
 
   const tasks = await prisma.task.findMany({
     where,
-    orderBy: { created_at: "desc" },
+    orderBy: { created_at: "asc" },
     include: {
       category: true,
     },
