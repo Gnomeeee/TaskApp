@@ -14,6 +14,6 @@ export const requireAuth = (req, res, next) => {
     req.userId = payload.userId;
     next();
   } catch {
-    next(new AppError("Invalid or expired token"), 401);
+    next(new AppError("Invalid or expired token", 401));
   }
 };
