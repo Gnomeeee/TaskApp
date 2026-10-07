@@ -1,0 +1,15 @@
+import { ImSpinner } from "react-icons/im";
+
+const Spinner = ({ label = "Loading...", className = "" }) => {
+  return (
+    <div className="flex justify-center items-center" role="status">
+      <span>{label}</span>
+      <ImSpinner
+        aria-hidden="true"
+        className={`text-lg animate-spin ${className}`}
+      />
+    </div>
+  );
+};
+
+export default Spinner;
