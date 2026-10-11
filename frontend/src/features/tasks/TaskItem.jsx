@@ -66,7 +66,9 @@ const TaskItem = ({
   };
 
   return (
-    <article className={`group grid gap-3 p-4 transition hover:bg-slate-50/80 sm:grid-cols-[auto_170px_minmax(0,1fr)_auto_auto] sm:items-center sm:gap-4 sm:px-5 ${task.completed ? "bg-slate-50/50" : ""}`}>
+    <article
+      className={`group grid gap-3 p-4 transition hover:bg-slate-50/80 sm:grid-cols-[auto_170px_minmax(0,1fr)_auto_auto] sm:items-center sm:gap-4 sm:px-5 ${task.completed ? "bg-slate-50/50" : ""}`}
+    >
       <input
         className="h-5 w-5 cursor-pointer rounded border-slate-300 accent-indigo-600 focus:ring-indigo-500"
         id={`task-${task.id}`}
@@ -88,7 +90,7 @@ const TaskItem = ({
         placeholder="No Category"
         onChange={(e) => onCategoryChange(task.id, e.target.value)}
         aria-label={`Category for ${task.title}`}
-        className="!py-2 !text-xs"
+        className="py-2! text-xs!"
       />
 
       {isEditing ? (
@@ -110,20 +112,21 @@ const TaskItem = ({
       ) : (
         <>
           <label
-            className={`min-w-0 cursor-pointer break-words text-sm font-medium ${task.completed ? "text-slate-400 line-through" : "text-slate-800"}`}
+            className={`min-w-0 cursor-pointer wrap-break-word text-sm font-medium ${task.completed ? "text-slate-400 line-through" : "text-slate-800"}`}
             htmlFor={`task-${task.id}`}
           >
             {task.title}
           </label>
 
           <div className="flex items-center gap-2 sm:justify-end">
-          <Button variant="secondary"
-            onClick={handleEdit}
-            disabled={pending}
-            aria-label="Edit task"
-          >
-            Edit
-          </Button>
+            <Button
+              variant="secondary"
+              onClick={handleEdit}
+              disabled={pending}
+              aria-label="Edit task"
+            >
+              Edit
+            </Button>
           </div>
         </>
       )}
