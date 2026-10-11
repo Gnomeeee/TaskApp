@@ -2,6 +2,10 @@ import { useCallback, useEffect, useState } from "react";
 import * as tasksApi from "../../services/api/task.api.js";
 export const useTasks = () => {
   const [tasks, setTasks] = useState([]);
+  const [search, setSearch] = useState("");
+  const [completed, setCompleted] = useState("");
+  const [page, setPage] = useState(1);
+  const [meta, setMeta] = useState({});
   const [isLoading, setIsLoading] = useState(true);
   const [error, setError] = useState("");
 
@@ -10,18 +14,24 @@ export const useTasks = () => {
     setError("");
 
     try {
-      const data = await tasksApi.getAllTasks();
-      setTasks(data);
+      const data = await tasksApi.getAllTasks({
+        search,
+        completed,
+        page,
+        limit: 10,
+      });
+      setTasks(data.data);
+      setMeta(data.meta);
     } catch (err) {
       setError(err.message || "Failed to load tasks");
     } finally {
       setIsLoading(false);
     }
-  }, []);
+  }, [search, completed, page]);
 
   const addTask = async (data) => {
-    const task = await tasksApi.createTask(data);
-    setTasks((currentTasks) => [...currentTasks, task]);
+    await tasksApi.createTask(data);
+    await fetchTasks();
   };
 
   const editTask = async (id, data) => {
@@ -33,7 +43,7 @@ export const useTasks = () => {
 
   const deleteTask = async (id) => {
     await tasksApi.deleteTask(id);
-    setTasks((currentTasks) => currentTasks.filter((task) => task.id !== id));
+    await fetchTasks();
   };
 
   const toggleTask = async (id) => {
@@ -51,6 +61,13 @@ export const useTasks = () => {
 
   return {
     tasks,
+    meta,
+    search,
+    setSearch,
+    completed,
+    setCompleted,
+    page,
+    setPage,
     isLoading,
     error,
     fetchTasks,

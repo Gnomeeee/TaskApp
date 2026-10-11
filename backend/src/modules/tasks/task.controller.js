@@ -3,8 +3,15 @@ import asyncHandler from "../../utils/asyncHandler.js";
 import * as taskService from "./task.service.js";
 
 export const getAllTasks = asyncHandler(async (req, res) => {
-  const tasks = await taskService.getAllTasks(req.userId);
-  return res.status(200).json(tasks);
+  const { search, completed, page, limit } = req.query;
+  const result = await taskService.getAllTasks(req.userId, {
+    search,
+    completed,
+    page: Number(page) || 1,
+    limit: Number(limit) || 10,
+  });
+
+  return res.status(200).json(result);
 });
 
 export const createTask = asyncHandler(async (req, res) => {

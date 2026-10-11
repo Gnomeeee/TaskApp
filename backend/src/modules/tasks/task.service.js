@@ -1,18 +1,58 @@
 import prisma from "../../config/prisma.js";
 import { AppError } from "../../utils/appError.js";
 
-export const getAllTasks = async (userId) => {
-  const where = { userId: userId };
+export const getAllTasks = async (
+  userId,
+  { search, completed, page, limit },
+) => {
+  const where = { userId };
+  const MAX_LIMIT = 100;
+
+  if (search !== undefined) {
+    where.title = { contains: search, mode: "insensitive" };
+  }
+
+  if (completed !== undefined) {
+    if (completed !== "true" && completed !== "false") {
+      throw new AppError("Completed must be true or false", 400);
+    }
+    where.completed = completed === "true";
+  }
+
+  if (!Number.isInteger(page) || page < 1) {
+    throw new AppError("Page must be a positive integer", 400);
+  }
+
+  if (!Number.isInteger(limit) || limit < 1) {
+    throw new AppError("Limit must be a positive integer", 400);
+  }
+
+  if (limit > MAX_LIMIT) {
+    throw new AppError(`Limit cannot exceed ${MAX_LIMIT}`, 400);
+  }
 
   const tasks = await prisma.task.findMany({
     where,
     orderBy: { created_at: "asc" },
+    skip: (page - 1) * limit,
+    take: limit,
     include: {
       category: true,
     },
   });
 
-  return tasks;
+  const total = await prisma.task.count({ where });
+  const totalPages = Math.ceil(total / limit) || 1;
+
+  return {
+    data: tasks,
+    meta: {
+      page,
+      limit,
+      total,
+      totalPages,
+    },
+  };
 };
 
 export const createTask = async (userId, { title, categoryId }) => {

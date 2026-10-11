@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { useAuth } from "../features/auth/useAuth.js";
 import { registerSchema } from "../features/auth/authValidation.js";
 import Form from "../components/ui/Form.jsx";
@@ -84,8 +84,9 @@ export default function RegisterPage() {
 
   return (
     <>
-      <main className="min-h-screen flex justify-center items-center bg-slate-50 px-6 py-12">
-        <div className="w-full max-w-md rounded-2xl bg-white p-8 shadow-sm ring-1 ring-slate-200">
+      <main className="flex min-h-screen items-center justify-center bg-[radial-gradient(ellipse_at_top,_var(--tw-gradient-stops))] from-indigo-100 via-slate-50 to-slate-100 px-4 py-10">
+        <div className="w-full max-w-md rounded-3xl border border-white/80 bg-white/95 p-7 shadow-xl shadow-slate-900/5 sm:p-9">
+          <div className="mb-8 flex h-11 w-11 items-center justify-center rounded-xl bg-indigo-600 text-lg font-bold text-white shadow-lg shadow-indigo-600/20">T</div>
           <header className="mb-8">
             <h1 className="text-3xl font-bold tracking-tight text-slate-900">
               Sign up
@@ -133,18 +134,18 @@ export default function RegisterPage() {
             />
 
             {formError && <ErrorMessage message={formError} />}
-            <Button type="submit" disabled={loading} aria-busy={loading}>
+            <Button type="submit" disabled={loading} aria-busy={loading} className="w-full">
               {loading ? <Spinner label="Creating account..." /> : "Register"}
             </Button>
           </Form>
           <p className="mt-6 text-center text-slate-600">
             Already have an account?{" "}
-            <a
-              href="/login"
+            <Link
+              to="/login"
               className="font-semibold text-indigo-600 hover:underline"
             >
               Login
-            </a>
+            </Link>
           </p>
         </div>
       </main>

@@ -5,7 +5,7 @@ const SuccessMessage = ({ id, message, className = "", ...props }) => {
     <p
       id={id}
       role="alert"
-      className={`text-sm leading-relaxed text-green-600 ${className}`}
+      className={`text-sm leading-relaxed text-emerald-700 ${className}`}
       {...props}
     >
       {message}

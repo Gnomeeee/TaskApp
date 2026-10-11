@@ -13,9 +13,9 @@ const Modal = ({
   if (!isOpen) return null;
 
   return (
-    <div className="fixed inset-0 flex items-center justify-center z-50 bg-black/50">
+    <div className="fixed inset-0 z-50 flex items-center justify-center bg-slate-950/45 px-4 py-6 backdrop-blur-sm">
       <div
-        className="w-full max-w-md rounded-xl bg-white p-6 shadow-lg"
+        className="w-full max-w-md rounded-2xl border border-slate-200/80 bg-white p-6 shadow-2xl shadow-slate-950/20 sm:p-8"
         {...prop}
       >
         <div className="mb-4 flex items-center justify-between">

@@ -5,7 +5,7 @@ const ErrorMessage = ({ id, message, className = "", ...props }) => {
     <p
       id={id}
       role="alert"
-      className={`text-sm leading-relaxed text-red-600 ${className}`}
+      className={`mt-1.5 text-sm leading-relaxed text-red-600 ${className}`}
       {...props}
     >
       {message}

@@ -1,23 +1,26 @@
 import TaskItem from "./TaskItem.jsx";
-import { useTasks } from "./useTasks.js";
 
-const TaskList = () => {
-  const { tasks, error, isLoading, editTask, deleteTask, toggleTask } =
-    useTasks();
-
+const TaskList = ({
+  tasks,
+  error,
+  isLoading,
+  editTask,
+  deleteTask,
+  toggleTask,
+}) => {
   if (isLoading) {
-    return <p>Loading tasks...</p>;
+    return <div className="rounded-2xl border border-slate-200 bg-white px-6 py-12 text-center text-sm text-slate-500 shadow-sm">Loading your tasks…</div>;
   }
 
   if (error) {
-    return <p>{error}</p>;
+    return <p role="alert" className="rounded-xl border border-red-200 bg-red-50 px-4 py-3 text-sm text-red-700">{error}</p>;
   }
 
   if (tasks.length === 0) {
-    return <p>No tasks yet.</p>;
+    return <div className="rounded-2xl border border-dashed border-slate-300 bg-white px-6 py-12 text-center shadow-sm"><p className="font-semibold text-slate-800">No tasks found</p><p className="mt-1 text-sm text-slate-500">Add a task above to get started.</p></div>;
   }
   return (
-    <div>
+    <div className="overflow-hidden rounded-2xl border border-slate-200 bg-white shadow-sm divide-y divide-slate-100">
       {tasks.map((task) => (
         <TaskItem
           key={task.id}

@@ -3,20 +3,30 @@
 @theme {
   --color-primary: #4f46e5;
   --color-primary-dark: #4338ca;
-
-  --color-background: #f8fafc;
+  --color-background: #f5f7fb;
   --color-surface: #ffffff;
-  --color-text: #0f172a;
+  --color-text: #172033;
   --color-muted: #64748b;
   --color-danger: #dc2626;
-
   --radius-card: 1rem;
-  --radius-button: 0.5rem;
-
+  --radius-button: 0.625rem;
   --font-sans: Inter, sans-serif;
 }
 
 :root {
   font-family: var(--font-sans);
-  background-color: var(--color-background);
+  color: var(--color-text);
+  background: var(--color-background);
+  font-synthesis: none;
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  font-optical-sizing: auto;
 }
+
+* { box-sizing: border-box; }
+body { min-width: 320px; min-height: 100vh; margin: 0; }
+button, input, select { font: inherit; }
+button { cursor: pointer; }
+button:disabled { cursor: not-allowed; }
+::selection { color: #312e81; background: #e0e7ff; }

@@ -66,9 +66,9 @@ const TaskItem = ({
   };
 
   return (
-    <div>
+    <article className={`group grid gap-3 p-4 transition hover:bg-slate-50/80 sm:grid-cols-[auto_170px_minmax(0,1fr)_auto_auto] sm:items-center sm:gap-4 sm:px-5 ${task.completed ? "bg-slate-50/50" : ""}`}>
       <input
-        className=""
+        className="h-5 w-5 cursor-pointer rounded border-slate-300 accent-indigo-600 focus:ring-indigo-500"
         id={`task-${task.id}`}
         type="checkbox"
         checked={task.completed}
@@ -88,15 +88,17 @@ const TaskItem = ({
         placeholder="No Category"
         onChange={(e) => onCategoryChange(task.id, e.target.value)}
         aria-label={`Category for ${task.title}`}
-        className="rounded-lg border border-slate-300 bg-white p-2"
+        className="!py-2 !text-xs"
       />
 
       {isEditing ? (
         <>
           <input
+            aria-label={`Edit ${task.title}`}
             type="text"
             value={draftTitle}
             onChange={(e) => setDraftTitle(e.target.value)}
+            className="min-w-0 rounded-lg border border-slate-300 px-3 py-2 text-sm outline-none focus:border-indigo-500 focus:ring-4 focus:ring-indigo-500/10 sm:col-span-2"
           />
           <Button onClick={handleSave} disabled={pending}>
             Save
@@ -108,23 +110,26 @@ const TaskItem = ({
       ) : (
         <>
           <label
-            className={`${task.completed ? "line-through" : ""}`}
+            className={`min-w-0 cursor-pointer break-words text-sm font-medium ${task.completed ? "text-slate-400 line-through" : "text-slate-800"}`}
             htmlFor={`task-${task.id}`}
           >
             {task.title}
           </label>
 
-          <Button
+          <div className="flex items-center gap-2 sm:justify-end">
+          <Button variant="secondary"
             onClick={handleEdit}
             disabled={pending}
             aria-label="Edit task"
           >
             Edit
           </Button>
+          </div>
         </>
       )}
 
       <Button
+        variant="danger"
         onClick={handleDelete}
         disabled={pending}
         aria-label="Delete task"
@@ -133,7 +138,7 @@ const TaskItem = ({
       </Button>
 
       {error && <ErrorMessage message={error} />}
-    </div>
+    </article>
   );
 };
 

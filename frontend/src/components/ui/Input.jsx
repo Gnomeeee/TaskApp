@@ -17,14 +17,14 @@ const Input = ({
   const inputType = isPassword && showPassword ? "text" : type;
   const errorId = `${id}-error`;
   return (
-    <div>
-      {label && <label htmlFor={id}>{label}</label>}
+    <div className="min-w-0">
+      {label && <label className="mb-1.5 block text-sm font-semibold text-slate-700" htmlFor={id}>{label}</label>}
       <div className="relative">
         <input
           id={id}
           name={name}
           type={inputType}
-          className={`${className} ${isPassword ? "pr-10" : ""}`}
+          className={`w-full rounded-lg border border-slate-300 bg-white px-3.5 py-2.5 text-sm text-slate-900 shadow-sm outline-none transition placeholder:text-slate-400 hover:border-slate-400 focus:border-indigo-500 focus:ring-4 focus:ring-indigo-500/10 disabled:bg-slate-100 ${error ? "border-red-400 focus:border-red-500 focus:ring-red-500/10" : ""} ${isPassword ? "pr-10" : ""} ${className}`}
           aria-invalid={error ? true : undefined}
           aria-describedby={error ? errorId : undefined}
           {...props}
