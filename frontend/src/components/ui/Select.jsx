@@ -4,9 +4,10 @@ const Select = ({
   id,
   label,
   value,
-  options,
+  options = [],
   className = "",
   error,
+  placeholder = "Choose an option",
   ...props
 }) => {
   const errorId = `${id}-error`;
@@ -21,6 +22,8 @@ const Select = ({
         aria-describedby={error ? errorId : undefined}
         {...props}
       >
+        <option value="">{placeholder}</option>
+
         {options.map((option) => (
           <option key={option.value} value={option.value}>
             {option.label}

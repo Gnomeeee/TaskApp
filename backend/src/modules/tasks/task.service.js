@@ -25,6 +25,9 @@ export const createTask = async (userId, { title, categoryId }) => {
 
   const task = await prisma.task.create({
     data: { title, userId, categoryId: categoryId ?? null },
+    include: {
+      category: true,
+    },
   });
 
   return task;
@@ -60,6 +63,9 @@ export const updateTask = async (userId, taskId, data) => {
   const updated = await prisma.task.update({
     where: { id: taskId },
     data,
+    include: {
+      category: true,
+    },
   });
 
   return updated;

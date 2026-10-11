@@ -13,6 +13,10 @@ app.use(helmet());
 app.use(cors({ origin: env.clientUrl }));
 app.use(express.json());
 
+app.use((req, res, next) => {
+  res.set("Cache-Control", "no-store");
+  next();
+});
 app.use("/api/auth", authRoutes);
 app.use("/api/tasks", taskRoutes);
 app.use("/api/categories", categoryRoutes);
