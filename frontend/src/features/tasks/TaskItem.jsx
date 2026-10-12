@@ -48,6 +48,22 @@ const TaskItem = ({
     }
   };
 
+  const handleCategoryChange = async (event) => {
+    setError("");
+    setPending(true);
+
+    try {
+      const categoryId = event.target.value
+        ? Number(event.target.value)
+        : null;
+      await onCategoryChange(task.id, categoryId);
+    } catch (err) {
+      setError(err.message || "Failed to update task category");
+    } finally {
+      setPending(false);
+    }
+  };
+
   const handleEdit = () => {
     setIsEditing(true);
   };
@@ -88,7 +104,7 @@ const TaskItem = ({
         }))}
         disabled={pending}
         placeholder="No Category"
-        onChange={(e) => onCategoryChange(task.id, e.target.value)}
+        onChange={handleCategoryChange}
         aria-label={`Category for ${task.title}`}
         className="py-2! text-xs!"
       />

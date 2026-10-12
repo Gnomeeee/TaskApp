@@ -14,8 +14,8 @@ const TaskForm = ({ addTask, categories }) => {
   const handleSubmit = async (e) => {
     e.preventDefault();
 
-    if (!title.trim()) {
-      setError("Title must be a non-empty string");
+    if (title.trim().length < 3) {
+      setError("Title must be at least 3 characters");
       return;
     }
 
@@ -24,7 +24,7 @@ const TaskForm = ({ addTask, categories }) => {
     try {
       await addTask({
         title: title.trim(),
-        categoryId: categoryId || null,
+        categoryId: categoryId ? Number(categoryId) : null,
       });
       setTitle("");
       setCategoryId("");
