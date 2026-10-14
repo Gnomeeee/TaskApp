@@ -2,9 +2,9 @@ import Pagination from "../features/tasks/Pagination.jsx";
 import TaskFilters from "../features/tasks/TaskFilters.jsx";
 import TaskForm from "../features/tasks/TaskForm.jsx";
 import TaskList from "../features/tasks/TaskList.jsx";
+import Navbar from "../components/layout/Navbar.jsx";
 import { useTasks } from "../features/tasks/useTasks.js";
 import { useCategories } from "../features/categories/useCategories.js";
-import Navbar from "../components/layout/Navbar.jsx";
 
 export default function TasksPage() {
   const taskState = useTasks();
